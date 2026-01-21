@@ -1,0 +1,99 @@
+{
+  "metadata": {
+    "courseId": "0061",
+    "courseTitle": "Splunk Enterprise Cluster Administration",
+    "slug": "cluster-admin",
+    "description": "Cluster fun!",
+    "courseDeveloper": ["Buttercup Pwny", "Splunk EDU"],
+    "modality": "ILT",
+    "duration": "13.5 hours",
+    "audience": {
+      "role": ["sysadmin", "power user"],
+      "internal": ["professional services", "sales engineer"],
+      "external": ["customer-facing", "partners"]
+    },
+    "ga": "2025-11-01",
+    "updated": "2026-01-21",
+    "splunk": {
+      "platform": {
+        "deployment": "Enterprise | Cloud",
+        "version": "10.2.1"
+      },
+      "security": {
+        "edition": ["Essentials", "Premier"],
+        "ES": {
+          "version": "7.X | 8.X"
+        },
+        "SOAR": {
+          "version": "6.X "
+        },
+        "UEBA": true
+      }
+    }
+  },
+  "spec": {
+    "instances": {
+      "idx": 4,
+      "sh": 3,
+      "cm": 2,
+      "mc": 1,
+      "uf": 1,
+      "lm": 1
+    },
+    "notes": [
+      "The deployment server, and deployer are colocated on lm1 instance."
+    ]
+  },
+  "instances": {
+    "*": {
+      "files": {
+        "source": ["./files/health.conf"],
+        "destination": "system/local"
+      }
+    },
+    "sh*": {
+      "apps": {
+        "source": ["./apps/sh-base-config"],
+        "destination": "apps"
+      }
+    },
+    "sh3": {
+      "files": {
+        "source": ["./sh3/server.conf"],
+        "destination": "system/local"
+      }
+    },
+    "cm*": {
+      "apps": {
+        "source": ["./apps/idx-base-config", "./apps/idx-transforms"],
+        "destination": "manager-apps"
+      },
+      "files": {
+        "source": ["./cm/server.conf"],
+        "destination": "system/local"
+      }
+    },
+    "uf*": {
+      "datagens": {
+        "source": ["./datagens/better-than-bad-log"],
+        "destination": "/opt/log/"
+      },
+      "apps": {
+        "source": ["./apps/uf-transforms"],
+        "destination": "apps"
+      }
+    },
+    "lm*": {
+      "apps": [
+        {
+          "source": ["./apps/uf-base"],
+          "destination": "deployment-apps"
+        },
+        {
+          "source": ["./apps/sh-base-config"],
+          "destination": "shcluster/apps"
+        }
+      ]
+    }
+  }
+}

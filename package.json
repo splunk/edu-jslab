@@ -1,0 +1,41 @@
+{
+  "name": "@splunk-edu/jslab",
+  "version": "1.0.0",
+  "description": "Generate Splunk EDU lab environment instance configurations from manifest",
+  "type": "module",
+  "keywords": [
+    "splunk",
+    "edu"
+  ],
+  "homepage": "https://github.com/splunk/edu-jslab",
+  "repository": {
+    "type": "git",
+    "url": "git@https://github.com/splunk/edu-jslab.git"
+  },
+  "main": "src/index.js",
+  "bin": {
+    "jslab": "./bin/jslab.js"
+  },
+  "scripts": {
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "dev": "node src/index.js",
+    "format": "prettier --write \"**/*.json\"",
+    "format:check": "prettier --check \"**/*.json\""
+  },
+  "author": "Splunk EDU",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "commander": "^12.0.0",
+    "pino": "^8.17.2",
+    "pino-pretty": "^11.0.0"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^1.1.0",
+    "prettier": "^3.8.0",
+    "vitest": "^1.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
