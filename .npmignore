@@ -1,1 +1,10 @@
+tests/
+coverage/
+docs/
+*.test.js
+vitest.config.js
+.vscode/
+.idea/
+.git/
 .gitignore
+.prettierrc
