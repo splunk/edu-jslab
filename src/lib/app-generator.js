@@ -362,8 +362,11 @@ function tarDirectory(parentDir, targetName, context, removeOriginal = false) {
   const tarPath = path.join(parentDir, tarFile);
 
   try {
-    // Use COPYFILE_DISABLE=1 to avoid macOS extended attributes
-    const cmd = `cd "${parentDir}" && COPYFILE_DISABLE=1 tar --format ustar -czf "${tarFile}" "${targetName}"`;
+    // Use COPYFILE_DISABLE=1 to avoid macOS extended attributes (only on macOS)
+    const isWindows = process.platform === 'win32';
+    const cmd = isWindows
+      ? `cd "${parentDir}" && tar --format ustar -czf "${tarFile}" "${targetName}"`
+      : `cd "${parentDir}" && COPYFILE_DISABLE=1 tar --format ustar -czf "${tarFile}" "${targetName}"`;
 
     execSync(cmd, { stdio: "pipe" });
 

@@ -75,11 +75,11 @@
     },
     "uf*": {
       "datagens": {
-        "source": ["./datagens/better-than-bad-log"],
+        "source": ["./datagens/good-log.py"],
         "destination": "/opt/log/"
       },
       "apps": {
-        "source": ["./apps/uf-transforms"],
+        "source": ["./apps/uf-good-log"],
         "destination": "apps"
       }
     },

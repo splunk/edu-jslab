@@ -1,6 +1,12 @@
-# RTFM
+# jslab
 
 Generate Splunk EDU lab environment instance configurations from a JSON manifest.
+
+Install it:
+
+```sh
+npm @splunk-edu/jslab
+```
 
 ## Using jslab
 
