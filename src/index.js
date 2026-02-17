@@ -61,8 +61,8 @@ program
 
       // Resolve instance configurations
       const resolvedInstances = resolveInstances(
-        manifest.instances,
-        manifest.spec
+        manifest.lab.instances,
+        manifest.lab.spec
       );
 
       logger.debug(

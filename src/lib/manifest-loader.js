@@ -49,8 +49,11 @@ export function loadManifest(courseDir) {
     );
 
     // Validate required fields
-    if (!manifest.instances) {
-      throw new Error('manifest.json missing required "instances" field');
+    if (!manifest.lab) {
+      throw new Error('manifest.json missing required "lab" field');
+    }
+    if (!manifest.lab.instances) {
+      throw new Error('manifest.json missing required "lab.instances" field');
     }
 
     return manifest;

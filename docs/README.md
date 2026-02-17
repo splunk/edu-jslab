@@ -30,10 +30,10 @@ jslab -h
 
 ## Creating a `manifest.json` file
 
-Create a `manifest.json` in your course lab config folder or repository. `jslab` requires two objects in your `manifest.json`:
+Create a `manifest.json` in your course lab config folder or repository. `jslab` requires a `lab` object in your `manifest.json` that contains two nested objects:
 
-- `spec`
-- `instances`
+- `spec` - defines the lab environment specification
+- `instances` - defines instance-specific configurations
 
 This guide will be using a hypothetical clustered environment to demonstrate the configuration options. Here's the full `manifest.json`:
 
@@ -61,18 +61,19 @@ This guide will be using a hypothetical clustered environment to demonstrate the
       }
     }
   },
-  "spec": {
-    "instances": {
-      "idx": 4,
-      "sh": 3,
-      "cm": 2,
-      "mc": 1,
-      "uf": 1,
-      "lm": 1
+  "lab": {
+    "spec": {
+      "instances": {
+        "idx": 4,
+        "sh": 3,
+        "cm": 2,
+        "mc": 1,
+        "uf": 1,
+        "lm": 1
+      },
+      "notes": ["The deployment server is colocated on lm1 instance."]
     },
-    "notes": ["The deployment server is colocated on lm1 instance."]
-  },
-  "instances": {
+    "instances": {
     "*": {
       "files": {
         "source": ["./files/health.conf"],
@@ -123,32 +124,42 @@ This guide will be using a hypothetical clustered environment to demonstrate the
         }
       ]
     }
+    }
   }
 }
 ```
 
 Let's break it down!
 
+### Defining the "lab" object
+
+The `lab` object wraps all lab-specific configuration and contains two required objects: `spec` and `instances`.
+
 ### Defining the "spec" object
 
-The `spec` object contains the specification for the lab environment. It requires an `instances` object and accepts an optional `notes` array.
+The `spec` object (nested within `lab`) contains the specification for the lab environment. It requires an `instances` object and accepts an optional `notes` array.
 
 Use the `instances` object to specify the instances and their quantities as key / value pairs:
 
 ```json
- "spec": {
-        "instances": {
-            "idx": 4,
-            "sh": 3,
-            "cm": 2,
-            "mc": 1,
-            "uf": 1,
-            "lm": 1
-        },
-        "notes": [
-            "The license manager, deployment server and deployer are colocated on lm1 instance.",
-        ]
-    },
+ "lab": {
+   "spec": {
+          "instances": {
+              "idx": 4,
+              "sh": 3,
+              "cm": 2,
+              "mc": 1,
+              "uf": 1,
+              "lm": 1
+          },
+          "notes": [
+              "The license manager, deployment server and deployer are colocated on lm1 instance."
+          ]
+      },
+   "instances": {
+     // ... instance configurations
+   }
+ }
 ```
 
 Use these naming abbreviations:
@@ -168,18 +179,20 @@ Use the `notes` array for any information that will be helpful to ops folks or f
 
 ### Defining the "instances" object
 
-The `instances` object contains specification for the individual instances declared in the `spec` object.
+The `instances` object (nested within `lab`) contains specification for the individual instances declared in the `spec` object.
 
 Use the `*` wild card alone to define apps or files to be included on ALL instances:
 
 ```json
-  "instances": {
-    "*": {
-      "files": {
-        "source": ["./files/health.conf"],
-        "destination": "system/local"
-      }
-    },
+  "lab": {
+    "spec": { /* ... */ },
+    "instances": {
+      "*": {
+        "files": {
+          "source": ["./files/health.conf"],
+          "destination": "system/local"
+        }
+      },
 ```
 
 This will bundle the configuration in every instance in your environment.

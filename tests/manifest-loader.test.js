@@ -22,7 +22,8 @@ describe("manifest-loader", () => {
       expect(manifest).toBeDefined();
       expect(manifest.metadata).toBeDefined();
       expect(manifest.metadata.courseId).toBe("0061");
-      expect(manifest.instances).toBeDefined();
+      expect(manifest.lab).toBeDefined();
+      expect(manifest.lab.instances).toBeDefined();
     });
 
     it("should throw error when manifest.json not found", () => {
@@ -36,8 +37,8 @@ describe("manifest-loader", () => {
       const manifest = loadManifest(courseDir);
 
       // Should successfully parse despite comments in the file
-      expect(manifest.instances).toBeDefined();
-      expect(manifest.instances["cm*"]).toBeDefined();
+      expect(manifest.lab.instances).toBeDefined();
+      expect(manifest.lab.instances["cm*"]).toBeDefined();
     });
   });
 
@@ -261,7 +262,9 @@ describe("manifest-loader", () => {
           courseId: "0001",
           updated: "2025-01-01"
         },
-        instances: {}
+        lab: {
+          instances: {}
+        }
       };
       fs.writeFileSync(testManifestPath, JSON.stringify(testManifest, null, 2));
     });
@@ -300,7 +303,9 @@ describe("manifest-loader", () => {
           courseId: "0001",
           ga: "2025-11-01"
         },
-        instances: {}
+        lab: {
+          instances: {}
+        }
       };
       fs.writeFileSync(testManifestPath, JSON.stringify(testManifest, null, 2));
 

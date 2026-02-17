@@ -1,6 +1,6 @@
 {
   "name": "@splunk-edu/jslab",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Generate Splunk EDU lab environment instance configurations from manifest",
   "type": "module",
   "keywords": [
